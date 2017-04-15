@@ -3,6 +3,7 @@
 const Wiki = require('./services/wikis');
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
 /***/
 
 /*** INICIALIZAÇÕES ***/
@@ -15,19 +16,26 @@ const wiki = {
 let myProjectWiki = new Wiki(wiki);
 
 const app = express();
+
 /***/
+
+app.route('/wikis')
+    .post((req, res) => {
+        res.send('POST com sucesso!');
+    })
+
 
 /*** APIS ***/
 app.get('/clone', (req, res) => {
     myProjectWiki.clone()
         .then((msg) => res.send(msg))
-        .catch((err) => res.status(500).send(err))
+        .catch((err) => res.status(500).send(err));
 });
 
 app.get('/pull', (req, res) => {
     myProjectWiki.pull()
         .then((msg) => res.send(msg))
-        .catch((err) => res.status(500).send(err))
+        .catch((err) => res.status(500).send(err));
 });
 
 /***/
